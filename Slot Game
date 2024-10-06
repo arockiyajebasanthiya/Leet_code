@@ -1,0 +1,45 @@
+Problem statement
+You’re given a slot machine with four slots where each slot will contain the color Red(R), Yellow(Y), Green(G), Blue(B), respectively. You don’t know the colors of this slot beforehand. You have to guess the colors. When you guess the correct color for the correct slot, you get a perfect hit, and you get 2 points, but if you guess a color that exists in the machine but is in the wrong slot, you get a pseudo hit, and you get 1 point.
+
+You’re given the original string representing the slots’ colors and the guess string, and your task is to calculate and return the total number of points you have scored.
+
+Note:
+
+A slot that has been counted as a perfect hit can never count as a pseudo-hit.
+```
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static int slotScore(String original, String guess) {
+		// Write your code here.
+		int point = 0;
+		boolean[] visited = new boolean[4];
+		boolean[] guess1 = new boolean[4];
+		for(int i = 0;i < 4;i++)
+		{
+			if(original.charAt(i) == guess.charAt(i)){
+              point += 2;
+			  visited[i] = true;
+			  guess1[i] = true;
+			} 
+		}
+		for(int i = 0; i < 4;i++)
+		{
+			if(!guess1[i])
+			{
+				for(int j = 0;j < 4;j++)
+				{
+						if(!visited[j] && original.charAt(i) == guess.charAt(j))
+						{
+							point += 1;
+							
+							visited[j] = true;
+							break;
+						}
+				}
+			}
+		}
+		return point;
+	}
+}
+```
