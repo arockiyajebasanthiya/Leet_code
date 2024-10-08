@@ -1,0 +1,73 @@
+Problem statement
+
+Send feedback
+You are given a binary matrix (it contains only 0s and 1s) with dimensions ‘N * M’. You need to find and return the sum of coverages of all zeros of the given matrix.
+
+Coverage for a particular 0 is defined as the total number of ‘1s’ around it (i.e., immediate left, immediate right, immediate up, and immediate bottom position
+```
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution {
+
+    // Method to compute coverage of all 0s in the matrix
+    public static Integer coverageOfMatrix(ArrayList<ArrayList<Integer>> mat) {
+        int n = mat.size(); // Number of rows
+        int m = mat.get(0).size(); // Number of columns
+        int totalCoverage = 0;
+
+        // Loop through the entire matrix
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (mat.get(i).get(j) == 0) { // Only interested in cells with 0
+                    // Check the four possible directions (up, down, left, right)
+                    // Top
+                    if (i > 0 && mat.get(i - 1).get(j) == 1) {
+                        totalCoverage++;
+                    }
+                    // Bottom
+                    if (i < n - 1 && mat.get(i + 1).get(j) == 1) {
+                        totalCoverage++;
+                    }
+                    // Left
+                    if (j > 0 && mat.get(i).get(j - 1) == 1) {
+                        totalCoverage++;
+                    }
+                    // Right
+                    if (j < m - 1 && mat.get(i).get(j + 1) == 1) {
+                        totalCoverage++;
+                    }
+                }
+            }
+        }
+        return totalCoverage; // Return total coverage of all 0s
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();  // Number of test cases
+
+        // Loop over each test case
+        while (T-- > 0) {
+            int n = sc.nextInt();  // Number of rows
+            int m = sc.nextInt();  // Number of columns
+
+            ArrayList<ArrayList<Integer>> mat = new ArrayList<>();  // Matrix initialization
+
+            // Read matrix input
+            for (int i = 0; i < n; i++) {
+                ArrayList<Integer> row = new ArrayList<>();
+                for (int j = 0; j < m; j++) {
+                    row.add(sc.nextInt());
+                }
+                mat.add(row);
+            }
+
+            // Calculate and print the coverage for the current matrix
+            System.out.println(coverageOfMatrix(mat));
+        }
+        sc.close(); // Close scanner
+    }
+}
+```
